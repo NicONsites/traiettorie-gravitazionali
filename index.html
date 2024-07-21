@@ -5,21 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gravitational Trajectories of Solar System Planets</title>
     <style>
-        body { margin: 0; }
+        body { margin: 0; font-family: Arial, sans-serif; }
         canvas { display: block; }
-        #info {
-            position: absolute;
-            top: 10px;
-            left: 10px;
+        #navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+        #navbar a {
+            float: left;
+            display: block;
             color: white;
-            font-family: sans-serif;
-            font-size: 20px;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        #navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        #info, #planet-data {
+            display: none;
+            padding: 20px;
+        }
+        #info.active, #planet-data.active {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
         }
     </style>
 </head>
 <body>
-    <div id="info">Gravitational Trajectories of Solar System Planets</div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="script.js"></script>
+    <div id="navbar">
+        <a href="#!" onclick="showSection('info')">Trajectories</a>
+        <a href="#!" onclick="showSection('planet-data')">Planet Data</a>
+    </div>
+    <div id="info" class="active">
+        <div>Gravitational Trajectories of Solar System Planets</div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="script.js"></script>
+    </div>
+    <div id="planet-data">
+        <h2>Planet Data</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Color</th>
+                    <th>Distance from Sun (AU)</th>
+                    <th>Radius (relative to Earth)</th>
+                </tr>
+            </thead>
+            <tbody id="planet-data-table"></tbody>
+        </table>
+        <script src="planetData.js"></script>
+    </div>
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('#info, #planet-data').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+    </script>
 </body>
 </html>
+
